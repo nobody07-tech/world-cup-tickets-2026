@@ -361,11 +361,55 @@ footer {
     margin-top: 50px;
 }
 
-@media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2.2rem;
-    }
-    nav ul {
-        display: none; /* Simplification pour mobile */
-    }
+/* Stadiums Grid */
+.stadium-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.stadium-card {
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.stadium-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.stadium-info {
+    padding: 20px;
+}
+
+.stadium-info h3 {
+    color: var(--primary-blue);
+    margin-bottom: 5px;
+}
+
+.stadium-info p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Category Select */
+.category-select {
+    margin-bottom: 20px;
+}
+
+.category-select label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.category-select select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }

@@ -45,11 +45,29 @@
         </div>
     </section>
 
+    <!-- Stadiums Section -->
+    <section id="stadiums" class="container section">
+        <h2 class="section-title">Nos Stades Iconiques</h2>
+        <div class="stadium-grid" id="stadium-grid">
+            <!-- Les stades seront insérés ici -->
+        </div>
+    </section>
+
     <!-- Modal Paiement -->
     <div id="payment-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h3>Finaliser votre commande</h3>
+            
+            <div class="category-select">
+                <label>Choisir votre catégorie :</label>
+                <select id="ticket-category" onchange="updateTotalPrice()">
+                    <option value="Standard">Standard</option>
+                    <option value="VIP">VIP (+200$)</option>
+                    <option value="VVIP">VVIP (+500$)</option>
+                </select>
+            </div>
+
             <div id="order-summary"></div>
             
             <div class="payment-options">
@@ -88,6 +106,7 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
