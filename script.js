@@ -17,29 +17,21 @@ const matches = [
 const stadiums = [
     { name: "Estadio Azteca", city: "Mexico City, Mexique", image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" },
     { name: "MetLife Stadium", city: "New York/NJ, USA", image: "https://images.unsplash.com/photo-1517262330716-58340d895397?auto=format&fit=crop&w=800&q=80" },
-    { name: "SoFi Stadium", city: "Los Angeles, USA", image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&w=800&q=80" },
+    { name: "SoFi Stadium", city: "Los Angeles, USA", image: "https://images.unsplash.com/photo-1599730480253-2d9c0548011c?auto=format&fit=crop&w=800&q=80" },
     { name: "AT&T Stadium", city: "Dallas, USA", image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80" },
     { name: "Mercedes-Benz Stadium", city: "Atlanta, USA", image: "https://images.unsplash.com/photo-1563820626388-c89b8823f66a?auto=format&fit=crop&w=800&q=80" },
     { name: "Hard Rock Stadium", city: "Miami, USA", image: "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?auto=format&fit=crop&w=800&q=80" },
     { name: "NRG Stadium", city: "Houston, USA", image: "https://images.unsplash.com/photo-1519098901909-b1553a1190af?auto=format&fit=crop&w=800&q=80" },
-    { name: "BMO Field", city: "Toronto, Canada", image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=800&q=80" }
+    { name: "Lumen Field", city: "Seattle, USA", image: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&w=800&q=80" }
 ];
 
 let cart = [];
 const DESTINATION_NUMBER = "655043923";
 
-/**
- * BASE DE DONNÉES (Explication) :
- * Dans cette version statique (hébergée sur GitHub Pages), la "base de données" est l'objet 'matches' ci-dessus.
- * Pour une application commerciale réelle avec des millions d'utilisateurs, nous utiliserions 
- * une base de données comme MongoDB ou PostgreSQL connectée à un serveur Node.js.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     displayMatches(matches);
     displayStadiums();
 
-    // Filtre de recherche
     const searchInput = document.getElementById('search-city');
     searchInput.addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase();
@@ -51,10 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         displayMatches(filtered);
     });
 
-    // Gestion des onglets de paiement
     setupPaymentTabs();
 
-    // Fermeture de la modal
     document.querySelector('.close-modal').onclick = () => {
         document.getElementById('payment-modal').style.display = 'none';
     };
@@ -187,7 +177,6 @@ async function processPayment(method) {
         }
     }
 
-    // Effet visuel de chargement
     btn.innerText = "Traitement en cours...";
     btn.disabled = true;
 
@@ -210,7 +199,6 @@ function generatePDFTicket(item) {
         format: [200, 100]
     });
 
-    // Header Bleu FIFA
     doc.setFillColor(0, 27, 72);
     doc.rect(0, 0, 200, 25, 'F');
     
@@ -218,7 +206,6 @@ function generatePDFTicket(item) {
     doc.setFontSize(16);
     doc.text("BILLET OFFICIEL - COUPE DU MONDE FIFA 2026™", 10, 15);
     
-    // Corps
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(22);
     doc.text(`${item.teamA.toUpperCase()} VS ${item.teamB.toUpperCase()}`, 10, 45);
@@ -229,7 +216,6 @@ function generatePDFTicket(item) {
     doc.text(`STADE : ${item.venue}`, 10, 80);
     doc.text(`VILLE : ${item.city}`, 10, 90);
     
-    // Zone latérale Or
     doc.setFillColor(200, 157, 60);
     doc.rect(140, 25, 60, 75, 'F');
     
