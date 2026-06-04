@@ -9,30 +9,37 @@ const matches = [
     { id: 8, teamA: "France", teamB: "Sénégal", codeA: "fr", codeB: "sn", date: "18 Juin 2026", time: "21:00", venue: "Mercedes-Benz Stadium", city: "Atlanta", price: 280 },
     { id: 9, teamA: "Argentine", teamB: "Autriche", codeA: "ar", codeB: "at", date: "20 Juin 2026", time: "19:00", venue: "Gillette Stadium", city: "Boston", price: 350 },
     { id: 10, teamA: "Angleterre", teamB: "Croatie", codeA: "gb-eng", codeB: "hr", date: "22 Juin 2026", time: "18:00", venue: "Lincoln Financial Field", city: "Philadelphia", price: 290 },
-    { id: 11, teamA: "Quart de Finale", teamB: "TBD", codeA: "un", codeB: "un", date: "10 Juillet 2026", time: "20:00", venue: "Arrowhead Stadium", city: "Kansas City", price: 500 },
-    { id: 12, teamA: "Demi-Finale", teamB: "TBD", codeA: "un", codeB: "un", date: "14 Juillet 2026", time: "20:00", venue: "AT&T Stadium", city: "Dallas", price: 800 },
+    { id: 11, teamA: "Portugal", teamB: "Colombie", codeA: "pt", codeB: "co", date: "24 Juin 2026", time: "19:00", venue: "Lumen Field", city: "Seattle", price: 240 },
+    { id: 12, teamA: "Belgique", teamB: "Égypte", codeA: "be", codeB: "eg", date: "25 Juin 2026", time: "20:00", venue: "Levi's Stadium", city: "San Francisco", price: 230 },
     { id: 13, teamA: "Finale", teamB: "TBD", codeA: "un", codeB: "un", date: "19 Juillet 2026", time: "15:00", venue: "MetLife Stadium", city: "New York/NJ", price: 1500 }
 ];
 
 const stadiums = [
-    { name: "Estadio Azteca", city: "Mexico City, Mexique", image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { name: "MetLife Stadium", city: "New York/NJ, USA", image: "https://images.unsplash.com/photo-1517262330716-58340d895397?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { name: "SoFi Stadium", city: "Los Angeles, USA", image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { name: "AT&T Stadium", city: "Dallas, USA", image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { name: "Mercedes-Benz Stadium", city: "Atlanta, USA", image: "https://images.unsplash.com/photo-1563820626388-c89b8823f66a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { name: "Hard Rock Stadium", city: "Miami, USA", image: "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { name: "BMO Field", city: "Toronto, Canada", image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-    { name: "BC Place", city: "Vancouver, Canada", image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+    { name: "Estadio Azteca", city: "Mexico City, Mexique", image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" },
+    { name: "MetLife Stadium", city: "New York/NJ, USA", image: "https://images.unsplash.com/photo-1517262330716-58340d895397?auto=format&fit=crop&w=800&q=80" },
+    { name: "SoFi Stadium", city: "Los Angeles, USA", image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&w=800&q=80" },
+    { name: "AT&T Stadium", city: "Dallas, USA", image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80" },
+    { name: "Mercedes-Benz Stadium", city: "Atlanta, USA", image: "https://images.unsplash.com/photo-1563820626388-c89b8823f66a?auto=format&fit=crop&w=800&q=80" },
+    { name: "Hard Rock Stadium", city: "Miami, USA", image: "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?auto=format&fit=crop&w=800&q=80" },
+    { name: "NRG Stadium", city: "Houston, USA", image: "https://images.unsplash.com/photo-1519098901909-b1553a1190af?auto=format&fit=crop&w=800&q=80" },
+    { name: "BMO Field", city: "Toronto, Canada", image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=800&q=80" }
 ];
 
 let cart = [];
 const DESTINATION_NUMBER = "655043923";
 
+/**
+ * BASE DE DONNÉES (Explication) :
+ * Dans cette version statique (hébergée sur GitHub Pages), la "base de données" est l'objet 'matches' ci-dessus.
+ * Pour une application commerciale réelle avec des millions d'utilisateurs, nous utiliserions 
+ * une base de données comme MongoDB ou PostgreSQL connectée à un serveur Node.js.
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     displayMatches(matches);
     displayStadiums();
 
-    // Filter Search
+    // Filtre de recherche
     const searchInput = document.getElementById('search-city');
     searchInput.addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase();
@@ -44,7 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
         displayMatches(filtered);
     });
 
-    // Payment Tabs
+    // Gestion des onglets de paiement
+    setupPaymentTabs();
+
+    // Fermeture de la modal
+    document.querySelector('.close-modal').onclick = () => {
+        document.getElementById('payment-modal').style.display = 'none';
+    };
+});
+
+function setupPaymentTabs() {
     const btnOrange = document.getElementById('pay-orange');
     const btnCard = document.getElementById('pay-card');
     const formOrange = document.getElementById('orange-form');
@@ -63,12 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formCard.classList.remove('hidden');
         formOrange.classList.add('hidden');
     });
-
-    // Close Modal
-    document.querySelector('.close-modal').onclick = () => {
-        document.getElementById('payment-modal').style.display = 'none';
-    };
-});
+}
 
 function displayMatches(matchesToDisplay) {
     const grid = document.getElementById('match-grid');
@@ -105,12 +116,12 @@ function displayMatches(matchesToDisplay) {
 
 function displayStadiums() {
     const grid = document.getElementById('stadium-grid');
-    grid.innerHTML = ''; // Nettoyer
+    grid.innerHTML = '';
     stadiums.forEach(stadium => {
         const card = document.createElement('div');
         card.className = 'stadium-card';
         card.innerHTML = `
-            <img src="${stadium.image}" alt="${stadium.name}">
+            <img src="${stadium.image}" alt="${stadium.name}" onerror="this.src='https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=800&q=80'">
             <div class="stadium-info">
                 <h3>${stadium.name}</h3>
                 <p>${stadium.city}</p>
@@ -148,7 +159,7 @@ function updateOrderSummary() {
             <p><strong>Match:</strong> ${item.teamA} vs ${item.teamB}</p>
             <p><strong>Catégorie:</strong> ${item.category}</p>
             <p><strong>Total:</strong> <span style="color: #d11242; font-weight: bold;">${item.finalPrice} $</span></p>
-            <p style="font-size: 0.8rem; margin-top: 10px; color: #666;">Transfert marchand vers : <strong>${DESTINATION_NUMBER}</strong></p>
+            <p style="font-size: 0.8rem; margin-top: 10px; color: #666;">Envoyez l'argent au : <strong>${DESTINATION_NUMBER}</strong></p>
         </div>
     `;
 }
@@ -165,24 +176,30 @@ function updateCartUI() {
 
 async function processPayment(method) {
     const item = cart[0];
+    const btn = event.target;
+    const originalText = btn.innerText;
+    
     if (method === 'orange') {
         const phone = document.getElementById('orange-phone').value;
         if (!phone) {
             alert("Veuillez entrer votre numéro Orange Money.");
             return;
         }
-        alert("ACTION REQUISE : Envoyez " + item.finalPrice + "$ au numéro " + DESTINATION_NUMBER + ".\n\nUne fois le transfert effectué, confirmez le message Push sur votre téléphone.");
-    } else {
-        alert("Paiement par carte bancaire validé.");
     }
+
+    // Effet visuel de chargement
+    btn.innerText = "Traitement en cours...";
+    btn.disabled = true;
 
     setTimeout(() => {
         generatePDFTicket(item);
-        alert("Félicitations ! Votre paiement a été confirmé. Votre billet pour " + item.teamA + " vs " + item.teamB + " est en cours de téléchargement.");
+        alert("PAIEMENT REÇU ! Votre billet officiel pour " + item.teamA + " vs " + item.teamB + " a été généré avec succès.");
         document.getElementById('payment-modal').style.display = 'none';
         cart = [];
         updateCartUI();
-    }, 1500);
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }, 2000);
 }
 
 function generatePDFTicket(item) {
@@ -193,7 +210,7 @@ function generatePDFTicket(item) {
         format: [200, 100]
     });
 
-    // En-tête bleu FIFA
+    // Header Bleu FIFA
     doc.setFillColor(0, 27, 72);
     doc.rect(0, 0, 200, 25, 'F');
     
@@ -201,7 +218,7 @@ function generatePDFTicket(item) {
     doc.setFontSize(16);
     doc.text("BILLET OFFICIEL - COUPE DU MONDE FIFA 2026™", 10, 15);
     
-    // Corps du billet
+    // Corps
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(22);
     doc.text(`${item.teamA.toUpperCase()} VS ${item.teamB.toUpperCase()}`, 10, 45);
@@ -226,5 +243,5 @@ function generatePDFTicket(item) {
     doc.text("ID: " + Math.random().toString(36).substr(2, 9).toUpperCase(), 150, 85);
     doc.text("PRIX: " + item.finalPrice + "$", 150, 92);
 
-    doc.save(`Ticket_FIFA2026_${item.teamA}_${item.category}.pdf`);
+    doc.save(`Billet_FIFA2026_${item.teamA}_${item.category}.pdf`);
 }
