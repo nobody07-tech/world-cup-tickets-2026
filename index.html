@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billetterie Officielle - Coupe du Monde FIFA 2026™</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <span class="fifa-text">FIFA</span> <span class="wc-text">WORLD CUP 2026</span>
+            </div>
+            <ul>
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#matches">Matchs</a></li>
+                <li><a href="#stadiums">Stades</a></li>
+                <li><button class="btn-cart"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Vivez l'histoire aux États-Unis</h1>
+            <p>Réservez vos places pour la plus grande Coupe du Monde de l'histoire.</p>
+            <a href="#matches" class="btn-primary">Acheter des billets</a>
+        </div>
+    </section>
+
+    <!-- Match List Section -->
+    <section id="matches" class="container section">
+        <h2 class="section-title">Matchs Disponibles - USA 2026</h2>
+        <div class="filters">
+            <input type="text" id="search-city" placeholder="Filtrer par ville (ex: Miami, New York...)">
+        </div>
+        <div id="match-grid" class="match-grid">
+            <!-- Les matchs seront insérés ici par JavaScript -->
+        </div>
+    </section>
+
+    <!-- Modal Paiement -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Finaliser votre commande</h3>
+            <div id="order-summary"></div>
+            
+            <div class="payment-options">
+                <button id="pay-orange" class="btn-payment active">Orange Money</button>
+                <button id="pay-card" class="btn-payment">Carte Bancaire</button>
+            </div>
+
+            <div id="orange-form" class="payment-form">
+                <label>Numéro Orange Money</label>
+                <input type="tel" id="orange-phone" placeholder="Ex: +237 6xx xxx xxx">
+                <button onclick="processPayment('orange')" class="btn-submit">Payer avec Orange Money</button>
+            </div>
+
+            <div id="card-form" class="payment-form hidden">
+                <label>Numéro de carte</label>
+                <input type="text" placeholder="xxxx xxxx xxxx xxxx">
+                <div class="card-details">
+                    <input type="text" placeholder="MM/YY">
+                    <input type="text" placeholder="CVV">
+                </div>
+                <button onclick="processPayment('card')" class="btn-submit">Payer par Carte</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/14104053591?text=Bonjour,%20je%20souhaite%20des%20informations%20sur%20les%20billets%20Coupe%20du%20Monde%202026." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span>Contactez-nous</span>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 FIFA World Cup™ - Billetterie officielle USA. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
